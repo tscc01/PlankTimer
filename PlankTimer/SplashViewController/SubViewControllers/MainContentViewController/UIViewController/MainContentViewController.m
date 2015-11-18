@@ -14,6 +14,9 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "SystemSettingViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import <iAd/iAd.h>
+#import <GoogleMobileAds/GoogleMobileAds.h>
+
 
 enum {
     STATUS_STOP = 0,
@@ -22,7 +25,7 @@ enum {
     STATUS_REST = 3,
 };
 
-@interface MainContentViewController ()
+@interface MainContentViewController () <ADBannerViewDelegate, GADBannerViewDelegate>
 {
     BOOL m_bInWorking;
     BOOL m_bDuringAction;
@@ -32,6 +35,7 @@ enum {
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *labelInfo;
+@property (weak, nonatomic) IBOutlet UILabel *labelTime;
 @property (weak, nonatomic) IBOutlet UIButton *btnMain;
 
 @property (strong, nonatomic) NSMutableDictionary *dicSetting;
@@ -39,6 +43,9 @@ enum {
 @property (strong, nonatomic) UIView *viewAlpha;
 
 @property (strong, nonatomic) AVAudioPlayer *player;
+
+@property (weak, nonatomic) IBOutlet ADBannerView *iAdBannerView;
+@property (weak, nonatomic) IBOutlet GADBannerView *admobBannerView;
 
 @end
 
@@ -50,6 +57,9 @@ enum {
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"global_setting", @"设置") style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonAction:)];
     [[AVAudioSession sharedInstance]setCategory:AVAudioSessionCategoryPlayback error:nil];
+    
+    _iAdBannerView.hidden = YES;
+    _admobBannerView.hidden = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,6 +81,7 @@ enum {
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
+    [self initViews];
 }
 
 /*
@@ -102,7 +113,11 @@ enum {
         [self loadDefaultSetting];
     }
     
+    m_bInWorking = NO;
+    [[BasicUtility sharedInstance]setButton:_btnMain titleForAllState:@"开始"];
+    
     _labelInfo.text = @"点击开始来锻炼~";
+    _labelTime.hidden = YES;
     
     int nCount = [_dicSetting[@"Count"]intValue];
     int nWorking = [_dicSetting[@"Working"]intValue];
@@ -205,7 +220,9 @@ enum {
 
 - (void)startAnimation
 {
-    _labelInfo.text = [NSString stringWithFormat:@"%d", m_nTimer];
+    _labelInfo.text = [NSString stringWithFormat:@"当前第%d组，还剩%d组", m_nCounter + 1, [_dicSetting[@"Count"]intValue] - m_nCounter];
+    _labelTime.text = [NSString stringWithFormat:@"%d", m_nTimer];
+    _labelTime.hidden = NO;
 
     [UIView animateWithDuration:1 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
         int nCount = [_dicSetting[@"Count"]intValue];
@@ -337,5 +354,13 @@ enum {
     _player = player;
     [player play];
 }
+
+#pragma mark - ADBannerViewDelegate
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+    _iAdBannerView.hidden = NO;
+    _admobBannerView.hidden = YES;
+}
+
 
 @end

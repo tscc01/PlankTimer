@@ -85,19 +85,19 @@
 - (void)rightBarButtonAction:(id)sender
 {
     if (![_cellCount.textValue.text intValue] || ![_cellWorking.textValue.text intValue] || ![_cellRest.textValue.text intValue]) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"请填充完整的设置" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"请填充完整的设置" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [alert show];
         return;
     }
     
     if ([_cellWorking.textValue.text intValue] < 3) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"最少撑举3秒" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"最少撑举3秒" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [alert show];
         return;
     }
     
     if ([_cellRest.textValue.text intValue] < 3) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"最少休息3秒" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"最少休息3秒" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [alert show];
         return;
     }
