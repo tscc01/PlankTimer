@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		433DC7F01C093398004E04F2 /* CERoundProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 433DC7ED1C093398004E04F2 /* CERoundProgressLayer.m */; };
+		433DC7F11C093398004E04F2 /* CERoundProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 433DC7EF1C093398004E04F2 /* CERoundProgressView.m */; };
 		437885B31BDF74830001706A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 437885B21BDF74830001706A /* main.m */; };
 		437885B61BDF74830001706A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 437885B51BDF74830001706A /* AppDelegate.m */; };
 		437885BE1BDF74830001706A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 437885BD1BDF74830001706A /* Assets.xcassets */; };
@@ -75,6 +77,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		433DC7EC1C093398004E04F2 /* CERoundProgressLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CERoundProgressLayer.h; sourceTree = "<group>"; };
+		433DC7ED1C093398004E04F2 /* CERoundProgressLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CERoundProgressLayer.m; sourceTree = "<group>"; };
+		433DC7EE1C093398004E04F2 /* CERoundProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CERoundProgressView.h; sourceTree = "<group>"; };
+		433DC7EF1C093398004E04F2 /* CERoundProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CERoundProgressView.m; sourceTree = "<group>"; };
 		437885AE1BDF74830001706A /* PlankTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlankTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		437885B21BDF74830001706A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		437885B41BDF74830001706A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -210,6 +216,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		433DC7EB1C093398004E04F2 /* CERoundProgressView */ = {
+			isa = PBXGroup;
+			children = (
+				433DC7EC1C093398004E04F2 /* CERoundProgressLayer.h */,
+				433DC7ED1C093398004E04F2 /* CERoundProgressLayer.m */,
+				433DC7EE1C093398004E04F2 /* CERoundProgressView.h */,
+				433DC7EF1C093398004E04F2 /* CERoundProgressView.m */,
+			);
+			path = CERoundProgressView;
+			sourceTree = "<group>";
+		};
 		43436B011BE210EC0058C36C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -548,6 +565,7 @@
 		43E905CF1BE0625E00D3BE56 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				433DC7EB1C093398004E04F2 /* CERoundProgressView */,
 				43F438C21BF5966800C71891 /* GoogleMobileAdsSdk */,
 				43E905D21BE0625E00D3BE56 /* JSONKit */,
 				43E905D81BE0625E00D3BE56 /* MJRefresh */,
@@ -818,11 +836,13 @@
 				43E905C31BE0601600D3BE56 /* UIView+ST.m in Sources */,
 				43E905F21BE0625E00D3BE56 /* JSONKit.m in Sources */,
 				43E9059F1BE0601600D3BE56 /* SplashViewController.m in Sources */,
+				433DC7F01C093398004E04F2 /* CERoundProgressLayer.m in Sources */,
 				43E905FB1BE0625E00D3BE56 /* MJRefreshLegendFooter.m in Sources */,
 				43E905A51BE0601600D3BE56 /* SwitchTableViewCell.m in Sources */,
 				43E905FF1BE0625E00D3BE56 /* UIView+MJExtension.m in Sources */,
 				43E905A11BE0601600D3BE56 /* IconHorizontalTableViewCell.m in Sources */,
 				43E905C21BE0601600D3BE56 /* UITableViewCell+ST.m in Sources */,
+				433DC7F11C093398004E04F2 /* CERoundProgressView.m in Sources */,
 				43E905F81BE0625E00D3BE56 /* MJRefreshGifFooter.m in Sources */,
 				43E905751BE0601600D3BE56 /* AppDelegateRouter.m in Sources */,
 				43E905761BE0601600D3BE56 /* InitializationManager.m in Sources */,

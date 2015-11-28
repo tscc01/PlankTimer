@@ -16,6 +16,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <iAd/iAd.h>
 #import <GoogleMobileAds/GoogleMobileAds.h>
+#import "CERoundProgressView.h"
 
 
 enum {
@@ -40,12 +41,14 @@ enum {
 
 @property (strong, nonatomic) NSMutableDictionary *dicSetting;
 @property (weak, nonatomic) IBOutlet UIView *viewMain;
-@property (strong, nonatomic) UIView *viewAlpha;
 
 @property (strong, nonatomic) AVAudioPlayer *player;
 
 @property (weak, nonatomic) IBOutlet ADBannerView *iAdBannerView;
 @property (weak, nonatomic) IBOutlet GADBannerView *admobBannerView;
+
+@property (weak, nonatomic) IBOutlet CERoundProgressView *progressTimer;
+@property (weak, nonatomic) IBOutlet CERoundProgressView *progressCounter;
 
 @end
 
@@ -93,18 +96,13 @@ enum {
     // Pass the selected object to the new view controller.
 }
 */
-//- (void)leftBarButtonAction:(id)sender
-//{
-//    [[ECContext sharedInstance].sideMenu presentLeftMenuViewController];
-//}
+
 
 - (void)initViews
 {
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 
     [self.view layoutIfNeeded];
-    
-    [self clearViews];
     
     if ([[[PersistentHelper sharedInstance]getNumberForKey:IS_USER_HAS_SETTING]boolValue]) {
         [self loadUesrSetting];
@@ -119,39 +117,20 @@ enum {
     _labelInfo.text = @"点击开始来锻炼~";
     _labelTime.hidden = YES;
     
-    int nCount = [_dicSetting[@"Count"]intValue];
-    int nWorking = [_dicSetting[@"Working"]intValue];
-    int nRest = [_dicSetting[@"Rest"]intValue];
-    CGFloat fWidth = _viewMain.frame.size.width / (nCount - 1 + 1.0 * nWorking / (nWorking + nRest));
-    CGFloat fHeight = _viewMain.frame.size.height;
-    CGFloat fLeftWidth = fWidth * (1.0 * nWorking / (nWorking + nRest));
-    for (int i = 0; i < nCount; i++) {
-        TimeLineView *view = [TimeLineView viewFromNib];
-        view.frame = CGRectMake(fWidth * i, 0, fWidth, fHeight);
-        view.lcLeftWidth.constant = fLeftWidth;
-        if (i == nCount - 1) {
-            view.lineTail.hidden = YES;
-            view.lineBottom.hidden = YES;
-            view.lineMid.hidden = YES;
-        }
-        [view layoutIfNeeded];
-        [_viewMain addSubview:view];
-    }
-    
-    _viewAlpha = [[UIView alloc]initWithFrame:CGRectMake(0, 0, _viewMain.frame.size.width, _viewMain.frame.size.height)];
-    _viewAlpha.backgroundColor = [UIColor redColor];
-    _viewAlpha.hidden = YES;
-    [_viewMain addSubview:_viewAlpha];
-}
+    [_progressTimer setProgress:0 animated:NO];
+    [_progressCounter setProgress:0 animated:NO];
 
-- (void)clearViews
-{
-    NSArray *array = _viewMain.subviews;
-    NSInteger nCount = array.count;
-    for (NSInteger i = nCount - 1; i >= 0; i--) {
-        UIView *view = array[i];
-        [view removeFromSuperview];
-    }
+    _progressTimer.startAngle = 3 * M_PI_2;
+    _progressTimer.startAngle = 3 * M_PI_2;
+
+    _progressTimer.animationDuration = 1;
+    _progressCounter.animationDuration = 1;
+    
+    _progressTimer.tintColor = [UIColor whiteColor];
+    _progressTimer.trackColor = [UIColor colorWithHexValue:@"ff6633"];
+    
+    _progressCounter.tintColor = [UIColor whiteColor];
+    _progressCounter.trackColor = [UIColor colorWithHexValue:@"0099ff"];
 }
 
 - (void)resetViews
@@ -181,16 +160,16 @@ enum {
     _dicSetting[@"Rest"] = [[PersistentHelper sharedInstance]getStringForKey:USER_SETTING_REST];
 }
 
-
 - (void)startWork
 {
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
     m_nStatus = STATUS_START;
     _labelInfo.text = @"准备~";
-    _viewAlpha.hidden = NO;
-    _viewAlpha.alpha = 1;
-    _viewAlpha.backgroundColor = [UIColor redColor];
+    
+    _progressTimer.trackColor = [UIColor redColor];
+    _progressCounter.trackColor = [UIColor redColor];
+    
     [self playReady];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (m_nStatus == STATUS_STOP) {
@@ -198,8 +177,10 @@ enum {
             return;
         }
         _labelInfo.text = @"开始！";
-        _viewAlpha.alpha = 1;
-        _viewAlpha.backgroundColor = [UIColor greenColor];
+        
+        _progressTimer.trackColor = [UIColor greenColor];
+        _progressCounter.trackColor = [UIColor greenColor];
+        
         [self playReady];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (m_nStatus == STATUS_STOP) {
@@ -210,8 +191,10 @@ enum {
             m_nTimer = nWorking;
             m_nCounter = 0;
             m_nStatus = STATUS_WORKING;
-            _viewAlpha.alpha = 0.5;
-            _viewAlpha.backgroundColor = [UIColor blackColor];
+            
+            _progressTimer.trackColor = [UIColor colorWithHexValue:@"ff6633"];
+            _progressCounter.trackColor = [UIColor colorWithHexValue:@"0099ff"];
+            
             [self playStart];
             [self startAnimation];
         });
@@ -224,66 +207,93 @@ enum {
     _labelTime.text = [NSString stringWithFormat:@"%d", m_nTimer];
     _labelTime.hidden = NO;
 
-    [UIView animateWithDuration:1 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        int nCount = [_dicSetting[@"Count"]intValue];
-        int nWorking = [_dicSetting[@"Working"]intValue];
-        int nRest = [_dicSetting[@"Rest"]intValue];
-        m_nTimer--;
-        if (m_nTimer == 2 || m_nTimer == 1) {
-            [self playReady];
+    int nCount = [_dicSetting[@"Count"]intValue];
+    int nWorking = [_dicSetting[@"Working"]intValue];
+    int nRest = [_dicSetting[@"Rest"]intValue];
+    m_nTimer--;
+    if (m_nTimer == 2 || m_nTimer == 1) {
+        [self playReady];
+    }
+    
+    if (m_nTimer == 0) {
+        switch (m_nStatus) {
+            case STATUS_WORKING:
+                if (m_nCounter == nCount - 1) {
+                    [self playStop];
+                    
+                    m_nStatus = STATUS_STOP;
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self finishAnimation];
+                    });
+                    m_nTimer = 0;
+                }
+                else {
+                    [self playStart];
+                    m_nStatus = STATUS_REST;
+                    m_nTimer = nRest;
+                    
+                    [_progressTimer setProgress:1.0 animated:YES];
+                }
+                break;
+            case STATUS_REST:
+                [self playStart];
+                m_nCounter++;
+                m_nStatus = STATUS_WORKING;
+                m_nTimer = nWorking;
+                [_progressTimer setProgress:1.0 animated:YES];
+                break;
+            default:
+                [self playStart];
+                break;
         }
-        if (m_nTimer == 0) {
-            switch (m_nStatus) {
-                case STATUS_WORKING:
-                    if (m_nCounter == nCount - 1) {
-                        [self playStop];
-
-                        m_nStatus = STATUS_STOP;
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                            [self finishAnimation];
-                        });
-                        m_nTimer = 0;
-                    }
-                    else {
-                        [self playStart];
-                        m_nStatus = STATUS_REST;
-                        m_nTimer = nRest;
-                    }
-                    break;
-                case STATUS_REST:
-                    [self playStart];
-                    m_nCounter++;
-                    m_nStatus = STATUS_WORKING;
-                    m_nTimer = nWorking;
-                    break;
-                default:
-                    [self playStart];
-                    break;
+    }
+    else {
+        switch (m_nStatus) {
+            case STATUS_WORKING:
+                [_progressTimer setProgress:1.0 * (nWorking - m_nTimer) / nWorking animated:YES];
+                break;
+            case STATUS_REST:
+                [_progressTimer setProgress:1.0 * (nRest - m_nTimer) / nRest animated:YES];
+                break;
+            default:
+                break;
+        }
+    }
+    
+    if (m_nTimer == nWorking && m_nStatus == STATUS_WORKING) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [_progressTimer setProgress:0 animated:NO];
+            [_progressCounter setProgress:1.0 * m_nCounter / nCount animated:NO];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (m_nStatus == STATUS_STOP) {
+                    m_bDuringAction = NO;
+                    return;
+                }
+                [self startAnimation];
+            });
+        });
+    }
+    else if (m_nTimer == nRest && m_nStatus == STATUS_REST) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [_progressTimer setProgress:0 animated:NO];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (m_nStatus == STATUS_STOP) {
+                    m_bDuringAction = NO;
+                    return;
+                }
+                [self startAnimation];
+            });
+        });
+    }
+    else {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            if (m_nStatus == STATUS_STOP) {
+                m_bDuringAction = NO;
+                return;
             }
-        }
-        CGFloat fWidth = _viewMain.frame.size.width / (nCount - 1 + 1.0 * nWorking / (nWorking + nRest));
-        CGRect rect = CGRectMake(0, 0, _viewMain.frame.size.width, _viewMain.frame.size.height);
-        CGFloat fMinus = fWidth * m_nCounter;
-        if (m_nStatus == STATUS_WORKING) {
-            fMinus += fWidth * (nWorking - m_nTimer) / (nWorking + nRest);
-        }
-        else if (m_nStatus == STATUS_STOP) {
-            fMinus = _viewMain.frame.size.width;
-        }
-        else {
-            fMinus += fWidth * nWorking / (nWorking + nRest);
-            fMinus += fWidth * (nRest - m_nTimer) / (nWorking + nRest);
-        }
-        rect.size.width -= fMinus;
-        rect.origin.x += fMinus;
-        _viewAlpha.frame = rect;
-    } completion:^(BOOL finished) {
-        if (m_nStatus == STATUS_STOP) {
-            m_bDuringAction = NO;
-            return;
-        }
-        [self startAnimation];
-    }];
+            [self startAnimation];
+        });
+    }
 }
 
 - (void)finishAnimation

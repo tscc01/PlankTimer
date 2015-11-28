@@ -13,6 +13,8 @@
                 <outlet property="iAdBannerView" destination="OFd-L7-383" id="0BI-ct-2Dj"/>
                 <outlet property="labelInfo" destination="wy0-zc-gjg" id="5kc-ba-fhy"/>
                 <outlet property="labelTime" destination="ilP-Hb-YYY" id="gqd-gc-MUL"/>
+                <outlet property="progressCounter" destination="UFQ-l2-TlR" id="I7W-4E-Yrc"/>
+                <outlet property="progressTimer" destination="rB6-6r-Hfa" id="Yuv-ag-s1T"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewMain" destination="hcO-ug-hSM" id="S5U-gP-4I9"/>
             </connections>
@@ -38,10 +40,49 @@
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hcO-ug-hSM">
                     <rect key="frame" x="30" y="200" width="540" height="200"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rB6-6r-Hfa" customClass="CERoundProgressView">
+                            <rect key="frame" x="170" y="0.0" width="200" height="200"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UFQ-l2-TlR" customClass="CERoundProgressView">
+                                    <rect key="frame" x="25" y="25" width="150" height="150"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ee3-Mg-TOE" customClass="CERoundProgressView">
+                                            <rect key="frame" x="25" y="25" width="100" height="100"/>
+                                            <animations/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="100" id="Xbx-nn-zmA"/>
+                                                <constraint firstAttribute="width" secondItem="ee3-Mg-TOE" secondAttribute="height" multiplier="1:1" id="nol-xI-f7H"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" red="0.0" green="0.59999999999999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="ee3-Mg-TOE" firstAttribute="centerX" secondItem="UFQ-l2-TlR" secondAttribute="centerX" id="93n-oQ-APq"/>
+                                        <constraint firstAttribute="height" constant="150" id="RAH-jG-rih"/>
+                                        <constraint firstItem="ee3-Mg-TOE" firstAttribute="centerY" secondItem="UFQ-l2-TlR" secondAttribute="centerY" id="ehK-nJ-qh0"/>
+                                        <constraint firstAttribute="width" secondItem="UFQ-l2-TlR" secondAttribute="height" multiplier="1:1" id="qrZ-1g-KIk"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <animations/>
+                            <color key="backgroundColor" red="1" green="0.40000000000000002" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="UFQ-l2-TlR" firstAttribute="centerY" secondItem="rB6-6r-Hfa" secondAttribute="centerY" id="8a3-ps-BOK"/>
+                                <constraint firstAttribute="height" constant="200" id="dPW-FP-ixs"/>
+                                <constraint firstAttribute="width" secondItem="rB6-6r-Hfa" secondAttribute="height" multiplier="1:1" id="nhE-rk-Eyn"/>
+                                <constraint firstItem="UFQ-l2-TlR" firstAttribute="centerX" secondItem="rB6-6r-Hfa" secondAttribute="centerX" id="tLE-Ez-aci"/>
+                            </constraints>
+                        </view>
+                    </subviews>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="200" id="KLO-Kh-kbm"/>
+                        <constraint firstItem="rB6-6r-Hfa" firstAttribute="centerY" secondItem="hcO-ug-hSM" secondAttribute="centerY" id="arR-d9-ERn"/>
+                        <constraint firstItem="rB6-6r-Hfa" firstAttribute="centerX" secondItem="hcO-ug-hSM" secondAttribute="centerX" id="rst-Ri-wTf"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vqW-D6-ubi">
@@ -66,14 +107,11 @@
                     <constraints>
                         <constraint firstAttribute="width" secondItem="IhT-gV-Wwb" secondAttribute="height" multiplier="80:11" constant="32" id="NCX-PI-WtT"/>
                     </constraints>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="ph6-kZ-nal"/>
-                    </connections>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ilP-Hb-YYY">
-                    <rect key="frame" x="218" y="216.5" width="164.5" height="167.5"/>
+                    <rect key="frame" x="253" y="252.5" width="94" height="95.5"/>
                     <animations/>
-                    <fontDescription key="fontDescription" type="system" pointSize="140"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="80"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
