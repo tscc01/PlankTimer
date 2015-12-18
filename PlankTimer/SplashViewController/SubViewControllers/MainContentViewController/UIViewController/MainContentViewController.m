@@ -15,7 +15,6 @@
 #import "SystemSettingViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <iAd/iAd.h>
-#import <GoogleMobileAds/GoogleMobileAds.h>
 #import "CERoundProgressView.h"
 
 
@@ -26,7 +25,7 @@ enum {
     STATUS_REST = 3,
 };
 
-@interface MainContentViewController () <ADBannerViewDelegate, GADBannerViewDelegate>
+@interface MainContentViewController () <ADBannerViewDelegate>
 {
     BOOL m_bInWorking;
     BOOL m_bDuringAction;
@@ -45,10 +44,11 @@ enum {
 @property (strong, nonatomic) AVAudioPlayer *player;
 
 @property (weak, nonatomic) IBOutlet ADBannerView *iAdBannerView;
-@property (weak, nonatomic) IBOutlet GADBannerView *admobBannerView;
 
 @property (weak, nonatomic) IBOutlet CERoundProgressView *progressTimer;
 @property (weak, nonatomic) IBOutlet CERoundProgressView *progressCounter;
+
+@property (strong, nonatomic) NSTimer *timer;
 
 @end
 
@@ -62,7 +62,6 @@ enum {
     [[AVAudioSession sharedInstance]setCategory:AVAudioSessionCategoryPlayback error:nil];
     
     _iAdBannerView.hidden = YES;
-    _admobBannerView.hidden = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -119,6 +118,8 @@ enum {
     
     [_progressTimer setProgress:0 animated:NO];
     [_progressCounter setProgress:0 animated:NO];
+    [_progressTimer.layer removeAllAnimations];
+    [_progressCounter.layer removeAllAnimations];
 
     _progressTimer.startAngle = 3 * M_PI_2;
     _progressTimer.startAngle = 3 * M_PI_2;
@@ -203,10 +204,25 @@ enum {
 
 - (void)startAnimation
 {
+    NSTimeInterval timeInterval =1.0 ;
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:timeInterval target:self selector:@selector(timerFired:) userInfo:nil repeats:YES];
+    _timer = timer;
+    [timer fire];
+}
+
+-(void)timerFired:(NSTimer*)theTimer
+{
+    if (m_nStatus == STATUS_STOP) {
+        m_bDuringAction = NO;
+        [theTimer invalidate];
+        [self finishAnimation];
+        return;
+    }
+    
     _labelInfo.text = [NSString stringWithFormat:@"当前第%d组，还剩%d组", m_nCounter + 1, [_dicSetting[@"Count"]intValue] - m_nCounter];
     _labelTime.text = [NSString stringWithFormat:@"%d", m_nTimer];
     _labelTime.hidden = NO;
-
+    
     int nCount = [_dicSetting[@"Count"]intValue];
     int nWorking = [_dicSetting[@"Working"]intValue];
     int nRest = [_dicSetting[@"Rest"]intValue];
@@ -222,6 +238,7 @@ enum {
                     [self playStop];
                     
                     m_nStatus = STATUS_STOP;
+                    [theTimer invalidate];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [self finishAnimation];
                     });
@@ -231,8 +248,6 @@ enum {
                     [self playStart];
                     m_nStatus = STATUS_REST;
                     m_nTimer = nRest;
-                    
-                    [_progressTimer setProgress:1.0 animated:YES];
                 }
                 break;
             case STATUS_REST:
@@ -240,7 +255,6 @@ enum {
                 m_nCounter++;
                 m_nStatus = STATUS_WORKING;
                 m_nTimer = nWorking;
-                [_progressTimer setProgress:1.0 animated:YES];
                 break;
             default:
                 [self playStart];
@@ -250,49 +264,35 @@ enum {
     else {
         switch (m_nStatus) {
             case STATUS_WORKING:
-                [_progressTimer setProgress:1.0 * (nWorking - m_nTimer) / nWorking animated:YES];
+                if (m_nTimer + 1 == nWorking) {
+                    _progressTimer.animationDuration = nWorking;
+                    [_progressTimer setProgress:1.0 animated:YES];
+                }
+                
                 break;
             case STATUS_REST:
-                [_progressTimer setProgress:1.0 * (nRest - m_nTimer) / nRest animated:YES];
+                if (m_nTimer + 1 == nRest) {
+                    _progressTimer.animationDuration = nRest;
+                    [_progressTimer setProgress:1.0 animated:YES];
+                }
+                
                 break;
             default:
                 break;
         }
     }
     
+    
+    
+    if (m_nTimer + 1 == nRest && m_nStatus == STATUS_REST) {
+        [_progressCounter setProgress:1.0 * (m_nCounter + 1) / nCount animated:NO];
+    }
+    
     if (m_nTimer == nWorking && m_nStatus == STATUS_WORKING) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [_progressTimer setProgress:0 animated:NO];
-            [_progressCounter setProgress:1.0 * m_nCounter / nCount animated:NO];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                if (m_nStatus == STATUS_STOP) {
-                    m_bDuringAction = NO;
-                    return;
-                }
-                [self startAnimation];
-            });
-        });
+        [_progressTimer setProgress:0 animated:NO];
     }
     else if (m_nTimer == nRest && m_nStatus == STATUS_REST) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [_progressTimer setProgress:0 animated:NO];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                if (m_nStatus == STATUS_STOP) {
-                    m_bDuringAction = NO;
-                    return;
-                }
-                [self startAnimation];
-            });
-        });
-    }
-    else {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (m_nStatus == STATUS_STOP) {
-                m_bDuringAction = NO;
-                return;
-            }
-            [self startAnimation];
-        });
+        [_progressTimer setProgress:0 animated:NO];
     }
 }
 
@@ -369,7 +369,6 @@ enum {
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
     _iAdBannerView.hidden = NO;
-    _admobBannerView.hidden = YES;
 }
 
 

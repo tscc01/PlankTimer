@@ -72,7 +72,6 @@
 		43E906101BE0B2CE00D3BE56 /* SystemSettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43E9060E1BE0B2CE00D3BE56 /* SystemSettingViewController.xib */; };
 		43E906141BE0C0D700D3BE56 /* beep1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 43E906121BE0C0D700D3BE56 /* beep1.mp3 */; };
 		43E906151BE0C0D700D3BE56 /* beep2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 43E906131BE0C0D700D3BE56 /* beep2.mp3 */; };
-		43F438CA1BF5966800C71891 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F438C31BF5966800C71891 /* GoogleMobileAds.framework */; };
 		E03DECEC49DCFC318F1F987E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48FA01306EB5047D6B5E9DB0 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -191,12 +190,6 @@
 		43E9060E1BE0B2CE00D3BE56 /* SystemSettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SystemSettingViewController.xib; sourceTree = "<group>"; };
 		43E906121BE0C0D700D3BE56 /* beep1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep1.mp3; sourceTree = "<group>"; };
 		43E906131BE0C0D700D3BE56 /* beep2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = beep2.mp3; sourceTree = "<group>"; };
-		43F438C31BF5966800C71891 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
-		43F438C51BF5966800C71891 /* GADMAdNetworkAdapterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMAdNetworkAdapterProtocol.h; sourceTree = "<group>"; };
-		43F438C61BF5966800C71891 /* GADMAdNetworkConnectorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMAdNetworkConnectorProtocol.h; sourceTree = "<group>"; };
-		43F438C71BF5966800C71891 /* GADMEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMEnums.h; sourceTree = "<group>"; };
-		43F438C81BF5966800C71891 /* GADMRewardBasedVideoAdNetworkAdapterProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMRewardBasedVideoAdNetworkAdapterProtocol.h; sourceTree = "<group>"; };
-		43F438C91BF5966800C71891 /* GADMRewardBasedVideoAdNetworkConnectorProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADMRewardBasedVideoAdNetworkConnectorProtocol.h; sourceTree = "<group>"; };
 		48FA01306EB5047D6B5E9DB0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		862861E90269CC8A95BFB954 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FF51569728A8CA84C56BE63B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -207,7 +200,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43F438CA1BF5966800C71891 /* GoogleMobileAds.framework in Frameworks */,
 				437885C91BDF74C40001706A /* iAd.framework in Frameworks */,
 				E03DECEC49DCFC318F1F987E /* libPods.a in Frameworks */,
 			);
@@ -566,7 +558,6 @@
 			isa = PBXGroup;
 			children = (
 				433DC7EB1C093398004E04F2 /* CERoundProgressView */,
-				43F438C21BF5966800C71891 /* GoogleMobileAdsSdk */,
 				43E905D21BE0625E00D3BE56 /* JSONKit */,
 				43E905D81BE0625E00D3BE56 /* MJRefresh */,
 			);
@@ -648,27 +639,6 @@
 				43E906131BE0C0D700D3BE56 /* beep2.mp3 */,
 			);
 			path = Sound;
-			sourceTree = "<group>";
-		};
-		43F438C21BF5966800C71891 /* GoogleMobileAdsSdk */ = {
-			isa = PBXGroup;
-			children = (
-				43F438C31BF5966800C71891 /* GoogleMobileAds.framework */,
-				43F438C41BF5966800C71891 /* Mediation Adapters */,
-			);
-			path = GoogleMobileAdsSdk;
-			sourceTree = "<group>";
-		};
-		43F438C41BF5966800C71891 /* Mediation Adapters */ = {
-			isa = PBXGroup;
-			children = (
-				43F438C51BF5966800C71891 /* GADMAdNetworkAdapterProtocol.h */,
-				43F438C61BF5966800C71891 /* GADMAdNetworkConnectorProtocol.h */,
-				43F438C71BF5966800C71891 /* GADMEnums.h */,
-				43F438C81BF5966800C71891 /* GADMRewardBasedVideoAdNetworkAdapterProtocol.h */,
-				43F438C91BF5966800C71891 /* GADMRewardBasedVideoAdNetworkConnectorProtocol.h */,
-			);
-			path = "Mediation Adapters";
 			sourceTree = "<group>";
 		};
 		A5549AFAD86EBB1A4156E61C /* Pods */ = {
