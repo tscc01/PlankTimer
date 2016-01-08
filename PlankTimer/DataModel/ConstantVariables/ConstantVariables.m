@@ -13,11 +13,8 @@ const NSString *USER_SETTING_COUNT = @"USER_SETTING_COUNT";
 const NSString *USER_SETTING_WORKING = @"USER_SETTING_WORKING";
 const NSString *USER_SETTING_REST = @"USER_SETTING_REST";
 
-//////////////////////
-//error
-//////////////////////
-const NSString* ECErrorDomainResponseInvalidFormat = @"com.upluscar.ecardriver.response.invalid.format";
-const NSInteger ECErrorDomainCodeResponseInvalidFormat = -601;
 
-const NSString* ECErrorDomainResponseInvalidStatus = @"com.upluscar.ecardriver.response.invalid.status";
-const NSInteger ECErrorDomainCodeResponseInvalidStatus = -602;
+const NSString *USER_SUCCESS_COUNT = @"USER_SUCCESS_COUNT";
+const NSInteger USER_SUCCESS_AD_COUNT = 10;
+
+

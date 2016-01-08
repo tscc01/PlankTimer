@@ -14,10 +14,7 @@ extern NSString* USER_SETTING_COUNT;
 extern NSString* USER_SETTING_WORKING;
 extern NSString* USER_SETTING_REST;
 
+extern NSString* USER_SUCCESS_COUNT;
 
-extern NSString* ECErrorDomainResponseInvalidFormat;
-extern const NSInteger ECErrorDomainCodeResponseInvalidFormat;
-
-extern NSString* ECErrorDomainResponseInvalidStatus;
-extern const NSInteger ECErrorDomainCodeResponseInvalidStatus;
+extern const NSInteger USER_SUCCESS_AD_COUNT;
 

@@ -25,7 +25,7 @@ enum {
     STATUS_REST = 3,
 };
 
-@interface MainContentViewController () <ADBannerViewDelegate>
+@interface MainContentViewController () <ADBannerViewDelegate, UIActionSheetDelegate>
 {
     BOOL m_bInWorking;
     BOOL m_bDuringAction;
@@ -219,7 +219,19 @@ enum {
         return;
     }
     
-    _labelInfo.text = [NSString stringWithFormat:@"当前第%d组，还剩%d组", m_nCounter + 1, [_dicSetting[@"Count"]intValue] - m_nCounter];
+    switch (m_nStatus) {
+        case STATUS_WORKING:
+            _progressTimer.trackColor = [UIColor colorWithHexValue:@"ff6633"];
+            break;
+        case STATUS_REST:
+            _progressTimer.trackColor = [UIColor greenColor];
+            break;
+        default:
+            _progressTimer.trackColor = [UIColor colorWithHexValue:@"ff6633"];
+            break;
+    }
+    int nRestAlter = (m_nStatus == STATUS_REST)?1:0;
+    _labelInfo.text = [NSString stringWithFormat:@"当前第%d组，还剩%d组", m_nCounter + 1 + nRestAlter, [_dicSetting[@"Count"]intValue] - m_nCounter - nRestAlter];
     _labelTime.text = [NSString stringWithFormat:@"%d", m_nTimer];
     _labelTime.hidden = NO;
     
@@ -240,6 +252,7 @@ enum {
                     m_nStatus = STATUS_STOP;
                     [theTimer invalidate];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self setSuccess];
                         [self finishAnimation];
                     });
                     m_nTimer = 0;
@@ -365,10 +378,64 @@ enum {
     [player play];
 }
 
+- (void)setSuccess
+{
+    int nNumber = [[[PersistentHelper sharedInstance]getNumberForKey:USER_SUCCESS_COUNT]intValue];
+    nNumber++;
+    if (nNumber == USER_SUCCESS_AD_COUNT) {
+        [self showAdView];
+    }
+    else {
+        [[PersistentHelper sharedInstance]saveNumber:[NSNumber numberWithInt:nNumber] forKey:USER_SUCCESS_COUNT];
+    }
+}
+
+- (void)showAdView
+{
+    NSString* strCancelTitle = @"你诚意不错，去看看";
+    NSString* strFirstButtonTitle = @"没兴趣，别再烦我";
+    NSString* strSecondButtonTitle = @"不高兴，下次再说";
+    NSString* strThirdButtonTitle = @"程序还行，给个评论";
+    
+    UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:@"感谢您多次使用本APP健身，健身赚钱两不误，推荐您一款理财产品，最高年化收益率18%，有兴趣的话去看看吧~" delegate:self cancelButtonTitle:strCancelTitle destructiveButtonTitle:nil otherButtonTitles:strFirstButtonTitle, strSecondButtonTitle, strThirdButtonTitle, nil];
+    
+    [sheet showInView:self.view];
+}
+
+
 #pragma mark - ADBannerViewDelegate
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
     _iAdBannerView.hidden = NO;
+}
+
+#pragma mark - UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [[PersistentHelper sharedInstance]saveNumber:[NSNumber numberWithInt:(int)USER_SUCCESS_AD_COUNT] forKey:USER_SUCCESS_COUNT];
+    
+    switch (buttonIndex) {
+        case 0:
+            break;
+        case 1:
+            [[PersistentHelper sharedInstance]saveNumber:[NSNumber numberWithInt:0] forKey:USER_SUCCESS_COUNT];
+            break;
+        case 2:
+        {
+            NSString* url = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id1053738418"];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+        }
+            break;
+        case 3:
+        {
+            NSString* url = [NSString stringWithFormat:@"http://dwz.cn/2fbTRc"];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 
