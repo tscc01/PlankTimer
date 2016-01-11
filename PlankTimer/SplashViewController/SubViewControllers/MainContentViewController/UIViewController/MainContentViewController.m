@@ -16,6 +16,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <iAd/iAd.h>
 #import "CERoundProgressView.h"
+#import "BaiduMobAdView.h"
 
 
 enum {
@@ -25,7 +26,7 @@ enum {
     STATUS_REST = 3,
 };
 
-@interface MainContentViewController () <ADBannerViewDelegate, UIActionSheetDelegate>
+@interface MainContentViewController () <ADBannerViewDelegate, UIActionSheetDelegate, BaiduMobAdViewDelegate>
 {
     BOOL m_bInWorking;
     BOOL m_bDuringAction;
@@ -48,6 +49,7 @@ enum {
 @property (weak, nonatomic) IBOutlet CERoundProgressView *progressTimer;
 @property (weak, nonatomic) IBOutlet CERoundProgressView *progressCounter;
 
+@property (strong, nonatomic) BaiduMobAdView *viewBaiduAd;
 @property (strong, nonatomic) NSTimer *timer;
 
 @end
@@ -62,6 +64,17 @@ enum {
     [[AVAudioSession sharedInstance]setCategory:AVAudioSessionCategoryPlayback error:nil];
     
     _iAdBannerView.hidden = YES;
+    
+    _viewBaiduAd = [[BaiduMobAdView alloc] init]; //把在mssp.baidu.com上创建后获得的代码位id写到这里
+    _viewBaiduAd.AdUnitTag = @"2389478";
+    _viewBaiduAd.AdType = BaiduMobAdViewTypeBanner;
+    CGRect rect = _iAdBannerView.frame;
+    rect.origin.y = [UIScreen mainScreen].bounds.size.height - rect.size.height;
+    _viewBaiduAd.frame = rect;
+    _viewBaiduAd.delegate = self;
+    _viewBaiduAd.hidden = YES;
+    [self.view addSubview:_viewBaiduAd];
+    [_viewBaiduAd start];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -406,6 +419,7 @@ enum {
 #pragma mark - ADBannerViewDelegate
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
+    [_viewBaiduAd removeFromSuperview];
     _iAdBannerView.hidden = NO;
 }
 
@@ -438,5 +452,27 @@ enum {
     }
 }
 
+#pragma mark - BaiduMobAdViewDelegate
+- (NSString *)publisherId
+{
+    return  @"d5059a09";
+}
+
+-(BOOL) enableLocation
+{
+    return NO;
+}
+
+-(void) willDisplayAd:(BaiduMobAdView*) adview
+{
+    if (!_iAdBannerView.hidden) {
+        adview.hidden = YES;
+    }
+}
+
+-(void) failedDisplayAd:(BaiduMobFailReason) reason
+{
+    
+}
 
 @end
