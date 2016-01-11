@@ -1,0 +1,33 @@
+/* 
+  Localizable.strings
+  PlankTimer
+
+  Created by 李晓春 on 16/1/11.
+  Copyright © 2016年 tscc-sola. All rights reserved.
+*/
+
+"main_content_title" = "Challenge";
+"main_content_start" = "Start";
+"main_content_stop" = "Stop";
+"main_content_description" = "Click Start to challenge~";
+"main_content_ready" = "Ready~";
+"main_content_go" = "Go!";
+"main_content_working" = "The %d round, %d rounds left.";
+
+"system_setting_count" = "Plank count";
+"system_setting_working_time" = "Planking time";
+"system_setting_rest_time" = "Rest time";
+"system_alert_full" = "Please fill in the complete info";
+"system_alert_working" = "You should plank at least 3 seconds";
+"system_alert_rest" = "You should rest at least 3 seconds";
+
+"global_setting" = "Setting";
+"global_message_done" = "Done";
+"global_message_ok" = "OK";
+
+"ad_message_cancel" = "Take a look";
+"ad_message_first" = "Never bother me";
+"ad_message_second" = "Next time";
+"ad_message_third" = "Go to rate";
+"ad_message" = "Thank you for the use of the APP, recommend you a financial products, the highest annual rate of return is 18%, if you are interested to see it";
+

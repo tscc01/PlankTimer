@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"设置";
+    self.title = NSLocalizedString(@"global_setting", @"");
     // Do any additional setup after loading the view from its nib.
     if ([[[PersistentHelper sharedInstance]getNumberForKey:IS_USER_HAS_SETTING]boolValue]) {
         [self loadUesrSetting];
@@ -38,7 +38,7 @@
     }
     
     [self initCells];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"global_message_done", @"完成") style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonAction:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"global_message_done", @"") style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonAction:)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,21 +61,21 @@
     _arrayCells = [NSMutableArray array];
     
     TextFieldWithTipTableViewCell *cellCount = [TextFieldWithTipTableViewCell viewFromNib];
-    cellCount.labelInfo.text = @"进行次数";
+    cellCount.labelInfo.text = NSLocalizedString(@"system_setting_count", @"");
     cellCount.textValue.text = _dicSetting[@"Count"];
     cellCount.textValue.keyboardType = UIKeyboardTypeNumberPad;
     _cellCount = cellCount;
     [_arrayCells addObject:cellCount];
     
     TextFieldWithTipTableViewCell *cellWorking = [TextFieldWithTipTableViewCell viewFromNib];
-    cellWorking.labelInfo.text = @"撑举时间";
+    cellWorking.labelInfo.text = NSLocalizedString(@"system_setting_working_time", @"");
     cellWorking.textValue.text = _dicSetting[@"Working"];
     cellWorking.textValue.keyboardType = UIKeyboardTypeNumberPad;
     _cellWorking = cellWorking;
     [_arrayCells addObject:cellWorking];
     
     TextFieldWithTipTableViewCell *cellRest = [TextFieldWithTipTableViewCell viewFromNib];
-    cellRest.labelInfo.text = @"休息时间";
+    cellRest.labelInfo.text = NSLocalizedString(@"system_setting_rest_time", @"");
     cellRest.textValue.text = _dicSetting[@"Rest"];
     cellRest.textValue.keyboardType = UIKeyboardTypeNumberPad;
     _cellRest = cellRest;
@@ -85,19 +85,19 @@
 - (void)rightBarButtonAction:(id)sender
 {
     if (![_cellCount.textValue.text intValue] || ![_cellWorking.textValue.text intValue] || ![_cellRest.textValue.text intValue]) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"请填充完整的设置" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"system_alert_full", @"") message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"global_message_ok", @"") otherButtonTitles:nil];
         [alert show];
         return;
     }
     
     if ([_cellWorking.textValue.text intValue] < 3) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"最少撑举3秒" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"system_alert_working", @"") message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"global_message_ok", @"") otherButtonTitles:nil];
         [alert show];
         return;
     }
     
     if ([_cellRest.textValue.text intValue] < 3) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"最少休息3秒" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:NSLocalizedString(@"system_alert_rest", @"") message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"global_message_ok", @"") otherButtonTitles:nil];
         [alert show];
         return;
     }

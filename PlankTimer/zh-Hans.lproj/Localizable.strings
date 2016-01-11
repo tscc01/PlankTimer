@@ -1,10 +1,10 @@
-/* 
-  Localizable.strings
-  PlankTimer
-
-  Created by 李晓春 on 16/1/11.
-  Copyright © 2016年 tscc-sola. All rights reserved.
-*/
+/*
+ Localizable.strings
+ PlankTimer
+ 
+ Created by 李晓春 on 16/1/11.
+ Copyright © 2016年 tscc-sola. All rights reserved.
+ */
 
 "main_content_title" = "挑战";
 "main_content_start" = "开始";
@@ -22,11 +22,9 @@
 "system_alert_rest" = "最少休息3秒";
 
 
-
 "global_setting" = "设置";
 "global_message_done" = "完成";
 "global_message_ok" = "确定";
-
 
 
 "ad_message_cancel" = "你诚意不错，去看看";

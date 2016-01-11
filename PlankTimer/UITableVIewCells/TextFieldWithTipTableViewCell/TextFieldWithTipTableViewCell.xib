@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15B17c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -17,19 +17,16 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="四个汉字" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FOU-Bf-49v">
                         <rect key="frame" x="15" y="0.0" width="64" height="43"/>
-                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Buq-7G-oOU">
-                        <rect key="frame" x="90" y="0.0" width="222" height="43"/>
-                        <animations/>
+                        <rect key="frame" x="89" y="0.0" width="223" height="43"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <textInputTraits key="textInputTraits"/>
                     </textField>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstItem="Buq-7G-oOU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="5k0-Eu-1uw"/>
                     <constraint firstAttribute="bottom" secondItem="Buq-7G-oOU" secondAttribute="bottom" id="B0D-kU-9v6"/>
@@ -39,9 +36,14 @@
                     <constraint firstAttribute="trailingMargin" secondItem="Buq-7G-oOU" secondAttribute="trailing" id="XFu-9x-qi4"/>
                     <constraint firstAttribute="bottom" secondItem="FOU-Bf-49v" secondAttribute="bottom" id="YWr-jG-TbE"/>
                     <constraint firstItem="Buq-7G-oOU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="90" id="hxM-dc-PYn"/>
+                    <constraint firstItem="Buq-7G-oOU" firstAttribute="leading" secondItem="FOU-Bf-49v" secondAttribute="trailing" constant="10" id="nHq-s7-ahY"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="hxM-dc-PYn"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
-            <animations/>
             <connections>
                 <outlet property="labelInfo" destination="FOU-Bf-49v" id="82u-7l-5Ui"/>
                 <outlet property="lcTextLeft" destination="hxM-dc-PYn" id="Q5H-r8-Haq"/>

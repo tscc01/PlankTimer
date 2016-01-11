@@ -1,0 +1,36 @@
+/*
+ Localizable.strings
+ PlankTimer
+ 
+ Created by 李晓春 on 16/1/11.
+ Copyright © 2016年 tscc-sola. All rights reserved.
+ */
+
+"main_content_title" = "挑戰";
+"main_content_start" = "開始";
+"main_content_stop" = "暫停";
+"main_content_description" = "點擊開始來鍛鍊~";
+"main_content_ready" = "準備~";
+"main_content_go" = "開始!";
+"main_content_working" = "當前第%d組，還剩%d組";
+
+"system_setting_count" = "進行次數";
+"system_setting_working_time" = "撐舉時間";
+"system_setting_rest_time" = "休息時間";
+"system_alert_full" = "請填充完整的設置";
+"system_alert_working" = "最少撐舉3秒";
+"system_alert_rest" = "最少休息3秒";
+
+
+
+"global_setting" = "設置";
+"global_message_done" = "完成";
+"global_message_ok" = "確定";
+
+
+
+"ad_message_cancel" = "你誠意不錯，去看看";
+"ad_message_first" = "沒興趣，別煩我";
+"ad_message_second" = "不高興，下次再說";
+"ad_message_third" = "程序還行，給個評論";
+"ad_message" = "感謝您多次使用本APP健身，健身賺錢兩不誤，推薦您一款理財產品，最高年化收益率18％，有興趣的話去看看吧~";

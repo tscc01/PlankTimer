@@ -14,6 +14,7 @@
 		437885BE1BDF74830001706A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 437885BD1BDF74830001706A /* Assets.xcassets */; };
 		437885C11BDF74830001706A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 437885BF1BDF74830001706A /* LaunchScreen.storyboard */; };
 		437885C91BDF74C40001706A /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 437885C81BDF74C40001706A /* iAd.framework */; };
+		43D857121C4349C600D28BDA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43D857101C4349C600D28BDA /* Localizable.strings */; };
 		43E9056D1BE0601600D3BE56 /* ConstantVariables.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E9047C1BE0601500D3BE56 /* ConstantVariables.m */; };
 		43E9056E1BE0601600D3BE56 /* ECContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E9047F1BE0601500D3BE56 /* ECContext.m */; };
 		43E905751BE0601600D3BE56 /* AppDelegateRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E904931BE0601500D3BE56 /* AppDelegateRouter.m */; };
@@ -65,7 +66,6 @@
 		43E905FD1BE0625E00D3BE56 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E905EC1BE0625E00D3BE56 /* UIScrollView+MJExtension.m */; };
 		43E905FE1BE0625E00D3BE56 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E905EE1BE0625E00D3BE56 /* UIScrollView+MJRefresh.m */; };
 		43E905FF1BE0625E00D3BE56 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E905F01BE0625E00D3BE56 /* UIView+MJExtension.m */; };
-		43E906021BE0703500D3BE56 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43E906001BE0703500D3BE56 /* Localizable.strings */; };
 		43E906061BE0789400D3BE56 /* TimeLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E906051BE0789400D3BE56 /* TimeLineView.m */; };
 		43E906081BE0789D00D3BE56 /* TimeLineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 43E906071BE0789D00D3BE56 /* TimeLineView.xib */; };
 		43E9060F1BE0B2CE00D3BE56 /* SystemSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 43E9060D1BE0B2CE00D3BE56 /* SystemSettingViewController.m */; };
@@ -88,6 +88,14 @@
 		437885C01BDF74830001706A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		437885C21BDF74830001706A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		437885C81BDF74C40001706A /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		43D857111C4349C600D28BDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		43D857141C43514800D28BDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		43D857151C43540900D28BDA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		43D857161C43540A00D28BDA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		43D857171C43541100D28BDA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		43D857181C43541100D28BDA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		43D857191C43543800D28BDA /* zh-Hant-TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant-TW"; path = "zh-Hant-TW.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		43D8571A1C43543800D28BDA /* zh-Hant-TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant-TW"; path = "zh-Hant-TW.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		43E9047B1BE0601500D3BE56 /* ConstantVariables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantVariables.h; sourceTree = "<group>"; };
 		43E9047C1BE0601500D3BE56 /* ConstantVariables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstantVariables.m; sourceTree = "<group>"; };
 		43E9047E1BE0601500D3BE56 /* ECContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECContext.h; sourceTree = "<group>"; };
@@ -181,7 +189,6 @@
 		43E905EE1BE0625E00D3BE56 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		43E905EF1BE0625E00D3BE56 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		43E905F01BE0625E00D3BE56 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
-		43E906011BE0703500D3BE56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		43E906041BE0789400D3BE56 /* TimeLineView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeLineView.h; sourceTree = "<group>"; };
 		43E906051BE0789400D3BE56 /* TimeLineView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeLineView.m; sourceTree = "<group>"; };
 		43E906071BE0789D00D3BE56 /* TimeLineView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeLineView.xib; sourceTree = "<group>"; };
@@ -225,8 +232,8 @@
 				43E906111BE0C0D700D3BE56 /* Sound */,
 				437885BD1BDF74830001706A /* Assets.xcassets */,
 				437885BF1BDF74830001706A /* LaunchScreen.storyboard */,
-				43E906001BE0703500D3BE56 /* Localizable.strings */,
 				437885C21BDF74830001706A /* Info.plist */,
+				43D857101C4349C600D28BDA /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -703,6 +710,9 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
+				"zh-Hant",
+				"zh-Hant-TW",
 			);
 			mainGroup = 437885A51BDF74830001706A;
 			productRefGroup = 437885AF1BDF74830001706A /* Products */;
@@ -721,7 +731,6 @@
 			files = (
 				43E905C91BE0601600D3BE56 /* SplashFailedView.xib in Resources */,
 				43E906101BE0B2CE00D3BE56 /* SystemSettingViewController.xib in Resources */,
-				43E906021BE0703500D3BE56 /* Localizable.strings in Resources */,
 				43E906081BE0789D00D3BE56 /* TimeLineView.xib in Resources */,
 				43E905F41BE0625E00D3BE56 /* MJRefresh.bundle in Resources */,
 				43E906141BE0C0D700D3BE56 /* beep1.mp3 in Resources */,
@@ -733,6 +742,7 @@
 				437885BE1BDF74830001706A /* Assets.xcassets in Resources */,
 				43E905A81BE0601600D3BE56 /* TextFieldWithButtonTableViewCell.xib in Resources */,
 				43E905AA1BE0601600D3BE56 /* TextFieldWithTipTableViewCell.xib in Resources */,
+				43D857121C4349C600D28BDA /* Localizable.strings in Resources */,
 				43E905C71BE0601600D3BE56 /* NoneDataView.xib in Resources */,
 				43E905A01BE0601600D3BE56 /* SplashViewController.xib in Resources */,
 				43E905C51BE0601600D3BE56 /* LoadingSplashView.xib in Resources */,
@@ -836,14 +846,21 @@
 			isa = PBXVariantGroup;
 			children = (
 				437885C01BDF74830001706A /* Base */,
+				43D857151C43540900D28BDA /* zh-Hans */,
+				43D857171C43541100D28BDA /* zh-Hant */,
+				43D857191C43543800D28BDA /* zh-Hant-TW */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		43E906001BE0703500D3BE56 /* Localizable.strings */ = {
+		43D857101C4349C600D28BDA /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				43E906011BE0703500D3BE56 /* Base */,
+				43D857111C4349C600D28BDA /* Base */,
+				43D857141C43514800D28BDA /* en */,
+				43D857161C43540A00D28BDA /* zh-Hans */,
+				43D857181C43541100D28BDA /* zh-Hant */,
+				43D8571A1C43543800D28BDA /* zh-Hant-TW */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

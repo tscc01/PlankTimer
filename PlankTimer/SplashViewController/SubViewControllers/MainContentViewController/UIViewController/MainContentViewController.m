@@ -56,9 +56,9 @@ enum {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"挑战";
+    self.title = NSLocalizedString(@"main_content_title", @"");
     // Do any additional setup after loading the view from its nib.
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"global_setting", @"设置") style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonAction:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"global_setting", @"") style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonAction:)];
     [[AVAudioSession sharedInstance]setCategory:AVAudioSessionCategoryPlayback error:nil];
     
     _iAdBannerView.hidden = YES;
@@ -111,9 +111,9 @@ enum {
     }
     
     m_bInWorking = NO;
-    [[BasicUtility sharedInstance]setButton:_btnMain titleForAllState:@"开始"];
+    [[BasicUtility sharedInstance]setButton:_btnMain titleForAllState:NSLocalizedString(@"main_content_start", @"")];
     
-    _labelInfo.text = @"点击开始来锻炼~";
+    _labelInfo.text = NSLocalizedString(@"main_content_description", @"");
     _labelTime.hidden = YES;
     
     [_progressTimer setProgress:0 animated:NO];
@@ -166,7 +166,7 @@ enum {
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
     
     m_nStatus = STATUS_START;
-    _labelInfo.text = @"准备~";
+    _labelInfo.text = NSLocalizedString(@"main_content_ready", @"");
     
     _progressTimer.trackColor = [UIColor redColor];
     _progressCounter.trackColor = [UIColor redColor];
@@ -177,7 +177,7 @@ enum {
             m_bDuringAction = NO;
             return;
         }
-        _labelInfo.text = @"开始！";
+        _labelInfo.text = NSLocalizedString(@"main_content_go", @"");
         
         _progressTimer.trackColor = [UIColor greenColor];
         _progressCounter.trackColor = [UIColor greenColor];
@@ -231,7 +231,7 @@ enum {
             break;
     }
     int nRestAlter = (m_nStatus == STATUS_REST)?1:0;
-    _labelInfo.text = [NSString stringWithFormat:@"当前第%d组，还剩%d组", m_nCounter + 1 + nRestAlter, [_dicSetting[@"Count"]intValue] - m_nCounter - nRestAlter];
+    _labelInfo.text = [NSString stringWithFormat:NSLocalizedString(@"main_content_working", @""), m_nCounter + 1 + nRestAlter, [_dicSetting[@"Count"]intValue] - m_nCounter - nRestAlter];
     _labelTime.text = [NSString stringWithFormat:@"%d", m_nTimer];
     _labelTime.hidden = NO;
     
@@ -342,11 +342,11 @@ enum {
     
     m_bInWorking = !m_bInWorking;
     if (m_bInWorking) {
-        [[BasicUtility sharedInstance]setButton:_btnMain titleForAllState:@"暂停"];
+        [[BasicUtility sharedInstance]setButton:_btnMain titleForAllState:NSLocalizedString(@"main_content_stop", @"")];
         [self startWork];
     }
     else {
-        [[BasicUtility sharedInstance]setButton:_btnMain titleForAllState:@"开始"];
+        [[BasicUtility sharedInstance]setButton:_btnMain titleForAllState:NSLocalizedString(@"main_content_start", @"")];
         m_bDuringAction = YES;
         [self stopWork];
         [self resetViews];
@@ -392,12 +392,12 @@ enum {
 
 - (void)showAdView
 {
-    NSString* strCancelTitle = @"你诚意不错，去看看";
-    NSString* strFirstButtonTitle = @"没兴趣，别再烦我";
-    NSString* strSecondButtonTitle = @"不高兴，下次再说";
-    NSString* strThirdButtonTitle = @"程序还行，给个评论";
+    NSString* strCancelTitle = NSLocalizedString(@"ad_message_cancel", @"");
+    NSString* strFirstButtonTitle = NSLocalizedString(@"ad_message_first", @"");
+    NSString* strSecondButtonTitle = NSLocalizedString(@"ad_message_second", @"");
+    NSString* strThirdButtonTitle = NSLocalizedString(@"ad_message_third", @"");
     
-    UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:@"感谢您多次使用本APP健身，健身赚钱两不误，推荐您一款理财产品，最高年化收益率18%，有兴趣的话去看看吧~" delegate:self cancelButtonTitle:strCancelTitle destructiveButtonTitle:nil otherButtonTitles:strFirstButtonTitle, strSecondButtonTitle, strThirdButtonTitle, nil];
+    UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"ad_message", @"") delegate:self cancelButtonTitle:strCancelTitle destructiveButtonTitle:nil otherButtonTitles:strFirstButtonTitle, strSecondButtonTitle, strThirdButtonTitle, nil];
     
     [sheet showInView:self.view];
 }
