@@ -86,7 +86,6 @@
 		437885B51BDF74830001706A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		437885BD1BDF74830001706A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		437885C01BDF74830001706A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		437885C21BDF74830001706A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		437885C81BDF74C40001706A /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		43D857111C4349C600D28BDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		43D857141C43514800D28BDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -96,6 +95,11 @@
 		43D857181C43541100D28BDA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		43D857191C43543800D28BDA /* zh-Hant-TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant-TW"; path = "zh-Hant-TW.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		43D8571A1C43543800D28BDA /* zh-Hant-TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant-TW"; path = "zh-Hant-TW.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		43D8571B1C435D9200D28BDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = Base.lproj/Info.plist; sourceTree = "<group>"; };
+		43D8571D1C435D9A00D28BDA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/Info.plist; sourceTree = "<group>"; };
+		43D8571E1C435D9B00D28BDA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hans"; path = "zh-Hans.lproj/Info.plist"; sourceTree = "<group>"; };
+		43D8571F1C435D9B00D28BDA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hant"; path = "zh-Hant.lproj/Info.plist"; sourceTree = "<group>"; };
+		43D857201C435D9C00D28BDA /* zh-Hant-TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "zh-Hant-TW"; path = "zh-Hant-TW.lproj/Info.plist"; sourceTree = "<group>"; };
 		43E9047B1BE0601500D3BE56 /* ConstantVariables.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConstantVariables.h; sourceTree = "<group>"; };
 		43E9047C1BE0601500D3BE56 /* ConstantVariables.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConstantVariables.m; sourceTree = "<group>"; };
 		43E9047E1BE0601500D3BE56 /* ECContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ECContext.h; sourceTree = "<group>"; };
@@ -232,7 +236,7 @@
 				43E906111BE0C0D700D3BE56 /* Sound */,
 				437885BD1BDF74830001706A /* Assets.xcassets */,
 				437885BF1BDF74830001706A /* LaunchScreen.storyboard */,
-				437885C21BDF74830001706A /* Info.plist */,
+				43D8571C1C435D9200D28BDA /* Info.plist */,
 				43D857101C4349C600D28BDA /* Localizable.strings */,
 			);
 			name = Resources;
@@ -863,6 +867,18 @@
 				43D8571A1C43543800D28BDA /* zh-Hant-TW */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		43D8571C1C435D9200D28BDA /* Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				43D8571B1C435D9200D28BDA /* Base */,
+				43D8571D1C435D9A00D28BDA /* en */,
+				43D8571E1C435D9B00D28BDA /* zh-Hans */,
+				43D8571F1C435D9B00D28BDA /* zh-Hant */,
+				43D857201C435D9C00D28BDA /* zh-Hant-TW */,
+			);
+			name = Info.plist;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
