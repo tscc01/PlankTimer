@@ -33,6 +33,9 @@ enum {
     int m_nStatus;
     int m_nCounter;
     int m_nTimer;
+    
+    BOOL m_bAppleAdFinished;
+    BOOL m_bBaiduAdFinished;
 }
 
 @property (weak, nonatomic) IBOutlet UILabel *labelInfo;
@@ -64,17 +67,6 @@ enum {
     [[AVAudioSession sharedInstance]setCategory:AVAudioSessionCategoryPlayback error:nil];
     
     _iAdBannerView.hidden = YES;
-    
-    _viewBaiduAd = [[BaiduMobAdView alloc] init]; //把在mssp.baidu.com上创建后获得的代码位id写到这里
-    _viewBaiduAd.AdUnitTag = @"2389478";
-    _viewBaiduAd.AdType = BaiduMobAdViewTypeBanner;
-    CGRect rect = _iAdBannerView.frame;
-    rect.origin.y = [UIScreen mainScreen].bounds.size.height - rect.size.height;
-    _viewBaiduAd.frame = rect;
-    _viewBaiduAd.delegate = self;
-    _viewBaiduAd.hidden = YES;
-    [self.view addSubview:_viewBaiduAd];
-    [_viewBaiduAd start];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -145,6 +137,9 @@ enum {
     
     _progressCounter.tintColor = [UIColor whiteColor];
     _progressCounter.trackColor = [UIColor colorWithHexValue:@"0099ff"];
+    
+    [_viewBaiduAd removeFromSuperview];
+    _viewBaiduAd = nil;
 }
 
 - (void)resetViews
@@ -210,6 +205,7 @@ enum {
             _progressCounter.trackColor = [UIColor colorWithHexValue:@"0099ff"];
             
             [self playStart];
+            [self requestBaiduAd];
             [self startAnimation];
         });
     });
@@ -415,12 +411,40 @@ enum {
     [sheet showInView:self.view];
 }
 
+- (void)requestBaiduAd
+{
+    if (m_bAppleAdFinished) {
+        _iAdBannerView.hidden = NO;
+    }
+    else {
+        _viewBaiduAd = [[BaiduMobAdView alloc] init]; //把在mssp.baidu.com上创建后获得的代码位id写到这里
+        _viewBaiduAd.AdUnitTag = @"2389478";
+        _viewBaiduAd.AdType = BaiduMobAdViewTypeBanner;
+        CGRect rect = _iAdBannerView.frame;
+        rect.origin.y = [UIScreen mainScreen].bounds.size.height - rect.size.height;
+        _viewBaiduAd.frame = rect;
+        _viewBaiduAd.delegate = self;
+        _viewBaiduAd.hidden = YES;
+        [self.view addSubview:_viewBaiduAd];
+        [_viewBaiduAd start];
+    }
+}
 
 #pragma mark - ADBannerViewDelegate
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
-    [_viewBaiduAd removeFromSuperview];
-    _iAdBannerView.hidden = NO;
+    m_bAppleAdFinished = YES;
+    
+    if (m_bInWorking) {
+        if (m_bBaiduAdFinished) {
+            [_viewBaiduAd removeFromSuperview];
+            _viewBaiduAd = nil;
+        }
+        _iAdBannerView.hidden = NO;
+    }
+    else {
+        _iAdBannerView.hidden = YES;
+    }
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -465,14 +489,19 @@ enum {
 
 -(void) willDisplayAd:(BaiduMobAdView*) adview
 {
-    if (!_iAdBannerView.hidden) {
-        adview.hidden = YES;
+    if (m_bInWorking) {
+        if (m_bAppleAdFinished) {
+            [_viewBaiduAd removeFromSuperview];
+            _viewBaiduAd = nil;
+        }
+        else {
+            adview.hidden = NO;
+        }
     }
-}
-
--(void) failedDisplayAd:(BaiduMobFailReason) reason
-{
-    
+    else {
+        [_viewBaiduAd removeFromSuperview];
+        _viewBaiduAd = nil;
+    }
 }
 
 @end

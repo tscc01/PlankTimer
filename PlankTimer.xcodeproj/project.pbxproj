@@ -1090,7 +1090,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.baidu.mobads.APIExampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tscc-sola.PlankTimer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1131,7 +1131,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.baidu.mobads.APIExampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.tscc-sola.PlankTimer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
