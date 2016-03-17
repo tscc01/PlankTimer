@@ -7,8 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "AppDelegateRouter.h"
-#import "InitializationManager.h"
 #import "SplashViewController.h"
 
 @interface AppDelegate ()
@@ -20,9 +18,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [[AppDelegateRouter sharedInstance]application:application didFinishLaunchingWithOptions:launchOptions];
-    [[InitializationManager sharedInstance]initSystemComponentsWithOptions:launchOptions];
-    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     SplashViewController *viewController = [[SplashViewController alloc]initWithNibName:nil bundle:nil];

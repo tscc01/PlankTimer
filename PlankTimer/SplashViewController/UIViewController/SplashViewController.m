@@ -8,11 +8,8 @@
 
 #import "SplashViewController.h"
 #import "MainContentViewController.h"
-#import "PersistentHelper.h"
-#import "STUtilities.h"
-#import "ECContext.h"
 
-@interface SplashViewController () <SplashFailedViewDelegate, UIAlertViewDelegate>
+@interface SplashViewController () <UIAlertViewDelegate>
 
 @property (strong, nonatomic) NSDictionary* dicVersion;
 

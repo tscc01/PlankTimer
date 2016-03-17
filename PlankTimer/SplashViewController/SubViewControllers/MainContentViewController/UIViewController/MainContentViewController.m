@@ -9,14 +9,9 @@
 #import "MainContentViewController.h"
 #import "STUtilities.h"
 #import "ConstantVariables.h"
-#import "TimeLineView.h"
-//#import "ECContext.h"
-#import <AudioToolbox/AudioToolbox.h>
 #import "SystemSettingViewController.h"
 #import <AVFoundation/AVFoundation.h>
-#import <iAd/iAd.h>
 #import "CERoundProgressView.h"
-#import "BaiduMobAdView.h"
 
 
 enum {
@@ -26,7 +21,7 @@ enum {
     STATUS_REST = 3,
 };
 
-@interface MainContentViewController () <ADBannerViewDelegate, UIActionSheetDelegate, BaiduMobAdViewDelegate>
+@interface MainContentViewController () <UIActionSheetDelegate>
 {
     BOOL m_bInWorking;
     BOOL m_bDuringAction;
@@ -47,12 +42,9 @@ enum {
 
 @property (strong, nonatomic) AVAudioPlayer *player;
 
-@property (weak, nonatomic) IBOutlet ADBannerView *iAdBannerView;
-
 @property (weak, nonatomic) IBOutlet CERoundProgressView *progressTimer;
 @property (weak, nonatomic) IBOutlet CERoundProgressView *progressCounter;
 
-@property (strong, nonatomic) BaiduMobAdView *viewBaiduAd;
 @property (strong, nonatomic) NSTimer *timer;
 
 @end
@@ -65,8 +57,6 @@ enum {
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"global_setting", @"") style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonAction:)];
     [[AVAudioSession sharedInstance]setCategory:AVAudioSessionCategoryPlayback error:nil];
-    
-    _iAdBannerView.hidden = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -137,9 +127,6 @@ enum {
     
     _progressCounter.tintColor = [UIColor whiteColor];
     _progressCounter.trackColor = [UIColor colorWithHexValue:@"0099ff"];
-    
-    [_viewBaiduAd removeFromSuperview];
-    _viewBaiduAd = nil;
 }
 
 - (void)resetViews
@@ -205,7 +192,6 @@ enum {
             _progressCounter.trackColor = [UIColor colorWithHexValue:@"0099ff"];
             
             [self playStart];
-            [self requestBaiduAd];
             [self startAnimation];
         });
     });
@@ -261,7 +247,6 @@ enum {
                     m_nStatus = STATUS_STOP;
                     [theTimer invalidate];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self setSuccess];
                         [self finishAnimation];
                     });
                     m_nTimer = 0;
@@ -385,123 +370,6 @@ enum {
     player.numberOfLoops = 2;
     _player = player;
     [player play];
-}
-
-- (void)setSuccess
-{
-    int nNumber = [[[PersistentHelper sharedInstance]getNumberForKey:USER_SUCCESS_COUNT]intValue];
-    nNumber++;
-    if (nNumber == USER_SUCCESS_AD_COUNT) {
-        [self showAdView];
-    }
-    else {
-        [[PersistentHelper sharedInstance]saveNumber:[NSNumber numberWithInt:nNumber] forKey:USER_SUCCESS_COUNT];
-    }
-}
-
-- (void)showAdView
-{
-    NSString* strCancelTitle = NSLocalizedString(@"ad_message_cancel", @"");
-    NSString* strFirstButtonTitle = NSLocalizedString(@"ad_message_first", @"");
-    NSString* strSecondButtonTitle = NSLocalizedString(@"ad_message_second", @"");
-    NSString* strThirdButtonTitle = NSLocalizedString(@"ad_message_third", @"");
-    
-    UIActionSheet* sheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"ad_message", @"") delegate:self cancelButtonTitle:strCancelTitle destructiveButtonTitle:nil otherButtonTitles:strFirstButtonTitle, strSecondButtonTitle, strThirdButtonTitle, nil];
-    
-    [sheet showInView:self.view];
-}
-
-- (void)requestBaiduAd
-{
-    if (m_bAppleAdFinished) {
-        _iAdBannerView.hidden = NO;
-    }
-    else {
-        _viewBaiduAd = [[BaiduMobAdView alloc] init]; //把在mssp.baidu.com上创建后获得的代码位id写到这里
-        _viewBaiduAd.AdUnitTag = @"2389478";
-        _viewBaiduAd.AdType = BaiduMobAdViewTypeBanner;
-        CGRect rect = _iAdBannerView.frame;
-        rect.origin.y = [UIScreen mainScreen].bounds.size.height - rect.size.height;
-        _viewBaiduAd.frame = rect;
-        _viewBaiduAd.delegate = self;
-        _viewBaiduAd.hidden = YES;
-        [self.view addSubview:_viewBaiduAd];
-        [_viewBaiduAd start];
-    }
-}
-
-#pragma mark - ADBannerViewDelegate
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner
-{
-    m_bAppleAdFinished = YES;
-    
-    if (m_bInWorking) {
-        if (m_bBaiduAdFinished) {
-            [_viewBaiduAd removeFromSuperview];
-            _viewBaiduAd = nil;
-        }
-        _iAdBannerView.hidden = NO;
-    }
-    else {
-        _iAdBannerView.hidden = YES;
-    }
-}
-
-#pragma mark - UIActionSheetDelegate
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    [[PersistentHelper sharedInstance]saveNumber:[NSNumber numberWithInt:(int)USER_SUCCESS_AD_COUNT] forKey:USER_SUCCESS_COUNT];
-    
-    switch (buttonIndex) {
-        case 0:
-            break;
-        case 1:
-            [[PersistentHelper sharedInstance]saveNumber:[NSNumber numberWithInt:0] forKey:USER_SUCCESS_COUNT];
-            break;
-        case 2:
-        {
-            NSString* url = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id1053738418"];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-        }
-            break;
-        case 3:
-        {
-            NSString* url = [NSString stringWithFormat:@"http://dwz.cn/2fbTRc"];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-        }
-            break;
-            
-        default:
-            break;
-    }
-}
-
-#pragma mark - BaiduMobAdViewDelegate
-- (NSString *)publisherId
-{
-    return  @"d5059a09";
-}
-
--(BOOL) enableLocation
-{
-    return NO;
-}
-
--(void) willDisplayAd:(BaiduMobAdView*) adview
-{
-    if (m_bInWorking) {
-        if (m_bAppleAdFinished) {
-            [_viewBaiduAd removeFromSuperview];
-            _viewBaiduAd = nil;
-        }
-        else {
-            adview.hidden = NO;
-        }
-    }
-    else {
-        [_viewBaiduAd removeFromSuperview];
-        _viewBaiduAd = nil;
-    }
 }
 
 @end
