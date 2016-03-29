@@ -28,6 +28,8 @@ enum {
     int m_nStatus;
     int m_nCounter;
     int m_nTimer;
+    int m_nWorkStep;
+    int m_nRestStep;
     
     BOOL m_bAppleAdFinished;
     BOOL m_bBaiduAdFinished;
@@ -98,6 +100,8 @@ enum {
 
     [self.view layoutIfNeeded];
     
+    [_timer invalidate];
+
     if ([[[PersistentHelper sharedInstance]getNumberForKey:IS_USER_HAS_SETTING]boolValue]) {
         [self loadUesrSetting];
     }
@@ -154,6 +158,10 @@ enum {
     _dicSetting[@"Count"] = [[PersistentHelper sharedInstance]getStringForKey:USER_SETTING_COUNT];
     _dicSetting[@"Working"] = [[PersistentHelper sharedInstance]getStringForKey:USER_SETTING_WORKING];
     _dicSetting[@"Rest"] = [[PersistentHelper sharedInstance]getStringForKey:USER_SETTING_REST];
+    _dicSetting[@"WorkStepCount"] = [[PersistentHelper sharedInstance]getStringForKey:USER_SETTING_WORK_STEP_COUNT];
+    _dicSetting[@"WorkStep"] = [[PersistentHelper sharedInstance]getStringForKey:USER_SETTING_WORK_STEP];
+    _dicSetting[@"RestStepCount"] = [[PersistentHelper sharedInstance]getStringForKey:USER_SETTING_REST_STEP_COUNT];
+    _dicSetting[@"RestStep"] = [[PersistentHelper sharedInstance]getStringForKey:USER_SETTING_REST_STEP];
 }
 
 - (void)startWork
@@ -187,6 +195,8 @@ enum {
             m_nTimer = nWorking;
             m_nCounter = 0;
             m_nStatus = STATUS_WORKING;
+            m_nWorkStep = 0;
+            m_nRestStep = 0;
             
             _progressTimer.trackColor = [UIColor colorWithHexValue:@"ff6633"];
             _progressCounter.trackColor = [UIColor colorWithHexValue:@"0099ff"];
@@ -233,6 +243,25 @@ enum {
     int nCount = [_dicSetting[@"Count"]intValue];
     int nWorking = [_dicSetting[@"Working"]intValue];
     int nRest = [_dicSetting[@"Rest"]intValue];
+    int nWorkStepCount = [_dicSetting[@"WorkStepCount"]intValue];
+    int nWorkStep = -[_dicSetting[@"WorkStep"]intValue];
+    int nRestStepCount = [_dicSetting[@"RestStepCount"]intValue];
+    int nRestStep = [_dicSetting[@"RestStep"]intValue];
+    
+    if (m_nWorkStep) {
+        nWorking += m_nWorkStep;
+        if (nWorking < 3) {
+            nWorking = 3;
+        }
+    }
+    
+    if (m_nRestStep) {
+        nRest += m_nRestStep;
+        if (nRest < 3) {
+            nRest = 3;
+        }
+    }
+    
     m_nTimer--;
     if (m_nTimer == 2 || m_nTimer == 1) {
         [self playReady];
@@ -254,6 +283,13 @@ enum {
                 else {
                     [self playStart];
                     m_nStatus = STATUS_REST;
+                    if (m_nCounter && nRestStepCount && ((m_nCounter) % nRestStepCount == 0)) {
+                        m_nRestStep = ((m_nCounter) / nRestStepCount) * nRestStep;
+                        nRest += nRestStep;
+                        if (nRest < 3) {
+                            nRest = 3;
+                        }
+                    }
                     m_nTimer = nRest;
                 }
                 break;
@@ -261,7 +297,15 @@ enum {
                 [self playStart];
                 m_nCounter++;
                 m_nStatus = STATUS_WORKING;
+                if (nWorkStepCount && ((m_nCounter) % nWorkStepCount == 0)) {
+                    m_nWorkStep = ((m_nCounter) / nWorkStepCount) * nWorkStep;
+                    nWorking += nWorkStep;
+                    if (nWorking < 3) {
+                        nWorking = 3;
+                    }
+                }
                 m_nTimer = nWorking;
+                
                 break;
             default:
                 [self playStart];
@@ -288,8 +332,6 @@ enum {
                 break;
         }
     }
-    
-    
     
     if (m_nTimer + 1 == nRest && m_nStatus == STATUS_REST) {
         [_progressCounter setProgress:1.0 * (m_nCounter + 1) / nCount animated:NO];

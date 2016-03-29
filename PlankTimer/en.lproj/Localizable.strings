@@ -17,6 +17,10 @@
 "system_setting_count" = "Plank count";
 "system_setting_working_time" = "Planking time";
 "system_setting_rest_time" = "Rest time";
+"system_setting_work_step_count" = "Minus planking time per round";
+"system_setting_work_step" = "Minus time";
+"system_setting_rest_step_count" = "Adding rest time per round";
+"system_setting_rest_step" = "Adding time";
 "system_alert_full" = "Please fill in the complete info";
 "system_alert_working" = "You should plank at least 3 seconds";
 "system_alert_rest" = "You should rest at least 3 seconds";

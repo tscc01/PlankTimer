@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "SplashViewController.h"
+#import "MainContentViewController.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface AppDelegate ()
 
@@ -18,6 +20,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:YES];
+    [[IQKeyboardManager sharedManager] setShouldResignOnTouchOutside:YES];
+    [[IQKeyboardManager sharedManager] disableInViewControllerClass:[UIAlertView class]];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     SplashViewController *viewController = [[SplashViewController alloc]initWithNibName:nil bundle:nil];
@@ -30,6 +37,15 @@
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    id vcRoot = self.window.rootViewController;
+    if ([vcRoot isKindOfClass:[UINavigationController class]]) {
+        vcRoot = [[vcRoot viewControllers]lastObject];
+    }
+    
+    if ([vcRoot isKindOfClass:[MainContentViewController class]]) {
+        MainContentViewController *vcMain = vcRoot;
+        [vcMain onButtonMainClicked:self];
+    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {

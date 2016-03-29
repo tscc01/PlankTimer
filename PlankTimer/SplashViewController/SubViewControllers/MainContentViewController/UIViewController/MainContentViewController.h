@@ -10,4 +10,6 @@
 
 @interface MainContentViewController : UIViewController
 
+- (IBAction)onButtonMainClicked:(id)sender;
+
 @end

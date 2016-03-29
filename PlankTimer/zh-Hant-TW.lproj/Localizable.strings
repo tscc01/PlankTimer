@@ -17,6 +17,10 @@
 "system_setting_count" = "進行次數";
 "system_setting_working_time" = "撐舉時間";
 "system_setting_rest_time" = "休息時間";
+"system_setting_work_step_count" = "每幾組減少撐舉時間";
+"system_setting_work_step" = "減少撐舉時間";
+"system_setting_rest_step_count" = "每幾組增加休息時間";
+"system_setting_rest_step" = "增加撐舉時間";
 "system_alert_full" = "請填充完整的設置";
 "system_alert_working" = "最少撐舉3秒";
 "system_alert_rest" = "最少休息3秒";

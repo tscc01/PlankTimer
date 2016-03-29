@@ -17,6 +17,10 @@
 "system_setting_count" = "进行次数";
 "system_setting_working_time" = "撑举时间";
 "system_setting_rest_time" = "休息时间";
+"system_setting_work_step_count" = "每几组减少撑举时间";
+"system_setting_work_step" = "减少撑举时间";
+"system_setting_rest_step_count" = "每几组增加休息时间";
+"system_setting_rest_step" = "增加休息时间";
 "system_alert_full" = "请填充完整的设置";
 "system_alert_working" = "最少撑举3秒";
 "system_alert_rest" = "最少休息3秒";

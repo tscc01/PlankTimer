@@ -21,6 +21,10 @@
 @property (strong, nonatomic) TextFieldWithTipTableViewCell *cellCount;
 @property (strong, nonatomic) TextFieldWithTipTableViewCell *cellWorking;
 @property (strong, nonatomic) TextFieldWithTipTableViewCell *cellRest;
+@property (strong, nonatomic) TextFieldWithTipTableViewCell *cellWorkStepCount;
+@property (strong, nonatomic) TextFieldWithTipTableViewCell *cellWorkStep;
+@property (strong, nonatomic) TextFieldWithTipTableViewCell *cellRestSetpCount;
+@property (strong, nonatomic) TextFieldWithTipTableViewCell *cellRestSetp;
 
 @end
 
@@ -80,6 +84,34 @@
     cellRest.textValue.keyboardType = UIKeyboardTypeNumberPad;
     _cellRest = cellRest;
     [_arrayCells addObject:cellRest];
+    
+    TextFieldWithTipTableViewCell *cellWorkStepCount = [TextFieldWithTipTableViewCell viewFromNib];
+    cellWorkStepCount.labelInfo.text = NSLocalizedString(@"system_setting_work_step_count", @"");
+    cellWorkStepCount.textValue.text = _dicSetting[@"WorkStepCount"];
+    cellWorkStepCount.textValue.keyboardType = UIKeyboardTypeNumberPad;
+    _cellWorkStepCount = cellWorkStepCount;
+    [_arrayCells addObject:cellWorkStepCount];
+    
+    TextFieldWithTipTableViewCell *cellWorkStep = [TextFieldWithTipTableViewCell viewFromNib];
+    cellWorkStep.labelInfo.text = NSLocalizedString(@"system_setting_work_step", @"");
+    cellWorkStep.textValue.text = _dicSetting[@"WorkStep"];
+    cellWorkStep.textValue.keyboardType = UIKeyboardTypeNumberPad;
+    _cellWorkStep = cellWorkStep;
+    [_arrayCells addObject:cellWorkStep];
+    
+    TextFieldWithTipTableViewCell *cellRestSetpCount = [TextFieldWithTipTableViewCell viewFromNib];
+    cellRestSetpCount.labelInfo.text = NSLocalizedString(@"system_setting_rest_step_count", @"");
+    cellRestSetpCount.textValue.text = _dicSetting[@"RestStepCount"];
+    cellRestSetpCount.textValue.keyboardType = UIKeyboardTypeNumberPad;
+    _cellRestSetpCount = cellRestSetpCount;
+    [_arrayCells addObject:cellRestSetpCount];
+    
+    TextFieldWithTipTableViewCell *cellRestSetp = [TextFieldWithTipTableViewCell viewFromNib];
+    cellRestSetp.labelInfo.text = NSLocalizedString(@"system_setting_rest_step", @"");
+    cellRestSetp.textValue.text = _dicSetting[@"RestStep"];
+    cellRestSetp.textValue.keyboardType = UIKeyboardTypeNumberPad;
+    _cellRestSetp = cellRestSetp;
+    [_arrayCells addObject:cellRestSetp];
 }
 
 - (void)rightBarButtonAction:(id)sender
@@ -105,7 +137,11 @@
     [[PersistentHelper sharedInstance]saveString:_cellCount.textValue.text forKey:USER_SETTING_COUNT];
     [[PersistentHelper sharedInstance]saveString:_cellWorking.textValue.text forKey:USER_SETTING_WORKING];
     [[PersistentHelper sharedInstance]saveString:_cellRest.textValue.text forKey:USER_SETTING_REST];
-    
+    [[PersistentHelper sharedInstance]saveString:_cellWorkStepCount.textValue.text forKey:USER_SETTING_WORK_STEP_COUNT];
+    [[PersistentHelper sharedInstance]saveString:_cellWorkStep.textValue.text forKey:USER_SETTING_WORK_STEP];
+    [[PersistentHelper sharedInstance]saveString:_cellRestSetpCount.textValue.text forKey:USER_SETTING_REST_STEP_COUNT];
+    [[PersistentHelper sharedInstance]saveString:_cellRestSetp.textValue.text forKey:USER_SETTING_REST_STEP];
+
     [[PersistentHelper sharedInstance]saveNumber:[NSNumber numberWithBool:YES] forKey:IS_USER_HAS_SETTING];
     
     [self.navigationController popViewControllerAnimated:YES];
@@ -117,6 +153,10 @@
     _dicSetting[@"Count"] = @"8";
     _dicSetting[@"Working"] = @"20";
     _dicSetting[@"Rest"] = @"10";
+    _dicSetting[@"WorkStepCount"] = @"0";
+    _dicSetting[@"WorkStep"] = @"0";
+    _dicSetting[@"RestStepCount"] = @"0";
+    _dicSetting[@"RestStep"] = @"0";
 }
 
 - (void)loadUesrSetting
@@ -125,6 +165,10 @@
     _dicSetting[@"Count"] = [[PersistentHelper sharedInstance]getStringForKey:USER_SETTING_COUNT];
     _dicSetting[@"Working"] = [[PersistentHelper sharedInstance]getStringForKey:USER_SETTING_WORKING];
     _dicSetting[@"Rest"] = [[PersistentHelper sharedInstance]getStringForKey:USER_SETTING_REST];
+    _dicSetting[@"WorkStepCount"] = [[PersistentHelper sharedInstance]getStringForKey:USER_SETTING_WORK_STEP_COUNT];
+    _dicSetting[@"WorkStep"] = [[PersistentHelper sharedInstance]getStringForKey:USER_SETTING_WORK_STEP];
+    _dicSetting[@"RestStepCount"] = [[PersistentHelper sharedInstance]getStringForKey:USER_SETTING_REST_STEP_COUNT];
+    _dicSetting[@"RestStep"] = [[PersistentHelper sharedInstance]getStringForKey:USER_SETTING_REST_STEP];
 }
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
