@@ -386,6 +386,7 @@ enum {
         m_bDuringAction = YES;
         [self stopWork];
         [self resetViews];
+        m_bDuringAction = NO;
     }
 }
 

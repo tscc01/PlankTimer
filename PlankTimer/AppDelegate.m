@@ -44,7 +44,7 @@
     
     if ([vcRoot isKindOfClass:[MainContentViewController class]]) {
         MainContentViewController *vcMain = vcRoot;
-        [vcMain onButtonMainClicked:self];
+        [vcMain initViews];
     }
 }
 
