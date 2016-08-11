@@ -718,7 +718,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tscc-sola.PlankTimer";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "579f50d3-17b8-4d39-9f41-8f30aae6ec97";
+				PROVISIONING_PROFILE = "a9d1e702-f0f0-42f6-b6b9-7e9b28cb60f8";
 			};
 			name = Release;
 		};
