@@ -1,9 +1,9 @@
 //
 //  TextFieldWithTipTableViewCell.m
-//  TengNiu
+//  HaoYa
 //
 //  Created by 李晓春 on 15/4/10.
-//  Copyright (c) 2015年 Teng Niu. All rights reserved.
+//  Copyright (c) 2015年 HaoYa. All rights reserved.
 //
 
 #import "TextFieldWithTipTableViewCell.h"
